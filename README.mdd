@@ -1,0 +1,41 @@
+# Tiziano-Giacomozzi-4-1-T.TARDE
+Tiziano Giacomozzi
+tizigiacomozzi525@gmail.com projecto informatico 4°1 Gonzalo Consorti
+Desarrollar un código y un esquema electrónico básico que haga una secuencia de luces con 3 leds RGB.
+
+La secuencia es la siguiente: 
+prende el 1°led en color rojo fuerte. (De forma analógica)
+se apaga el 1° led y se prende el 2° led en color magenta(de forma digital)
+se paga el 2° led y se prende el 3° led en color cian(De forma analógica y clarito/tenue)
+se paga el 3° led y se prende el 1° led  devuelta y así infinitamente.
+Entre cada cambio de color realizar un zumbido con un buzzer (que no dure mas de 100ms y de forma analógica)
+Usar variables no declarativas para organizar los pines usados
+
+Extra opcional: entre que se apaga un led y se prende el siguiente hacer que parpaden los 3 led 4 veces rapido (100ms) en color naranja.
+
+
+ES UN SOLO REPOSITORIO POR MATERIA, NO UNO POR TRABAJO A ENTREGAR  (debe llamarse Proyecto-1_apellido)
+
+
+La entrega de los TP se realiza por una nueva BRANCH/RAMA nacida del MAIN en su repositorio de GIT, ADENTRO UNA CARPETA CON EL MISMO NOMBRE DE LA RAMA,  dentro de la carpeta el archivo de código  .INO  y  la captura/recorte del circuito.
+
+Asegurarse de Agregarme como colaborador del repo GIT ->  consor92@gmail.com
+
+
+Luego colocar el enlace/URL de la BRACH en la entrega de esta tarea como un ENLACE (si no esta el link de acceso, no estoy como colaborador o se entrega por otro medios el TP se considera DESAPROBADO).
+Captura de pantalla del circuito.
+Archivo de codificación de arduino (   .ino)
+No subir archivos basura de ningún IDE o extras.
+Archivo README.md actualizado la consigna del TP a entregar (abrir el archivo en la BRANCH y editar su texto, luego COMMIT).
+Si se requiere algo estra en la consigna, subir documentación (siempre en formato .PDF)
+
+El archivo README.md de la Branch MAIN contendrá:
+Datos del alumno, docente y explicación de la materia.(Nombre y Apellido, Correo , Curso y Division)
+Organización/estructura de la branch y su contenido.
+El archivo README.md de la Branch que entregan trabajos contendrá:
+Datos del alumno, docente y explicación de la materia.(Nombre y Apellido, Correo , Curso y Division)
+Organización/estructura de la branch y su contenido.
+Consigna a resolver.
+Comentarios sobre complicaciones.
+
+Pueden usar la pagina que adjunto para armar de forma mas prolija el archivo README.md
