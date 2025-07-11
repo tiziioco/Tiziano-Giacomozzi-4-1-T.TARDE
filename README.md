@@ -1,20 +1,108 @@
 # Tiziano-Giacomozzi-4-1-T.TARDE
 Tiziano Giacomozzi
 tizigiacomozzi525@gmail.com projecto informatico 4°1 Gonzalo Consorti
-Usando el ejercicio del TP1 como base: Desarrollar un sistema con , controlando el tiempo entre los cambios de colores mediante una resistencia variable (potenciómetro) que valla desde 0s(aprox) min a 3s(aprox) max, y el encendido/apagado de los LEDs con un pulsador (en funcionalidad boton) que puede detener y recomenzar la secuencia en cualquier momento, un buzzer que emitirá un sonido cuando cambien los colores (junto a la secuencia de parpadeo).
+Instrucciones para el examen:  (semana del 7/7 al 11/7)
+Abrir tinkercad.com y crear un circuito básico para desarrollar la consigna.
+Dejar abierto su repositorio personal de GitHub (no crear repositorio nuevo), crear un nueva rama que se llame Examen y dentro una carpeta Examen.
+Realizar la consigna del examen expuesta mas abajo.
+Una vez resuelta o terminado el tiempo del examen, subir al repositorio: captura de pantalla del circuito y  el codigo en extensión .ino  (guardar archivo con nombre:    Apellido-Examen.ino) 
+Publicar en esta tarea el link al repositorio donde se subió la resolución del examen y tocar entregar.
+Asegurarse de que el repositorio este compartico con el docente como colaborador (Email docente:  consor92@gmail.com )
+La entrega por GIT también es evaluada.
+Se recuerda que no hay recuperatorio.
+Esta prohibido uso de celulares, o paginas auxiliares que no sean su repositorio de GitHub (sus TPs y Guías propios)
+El examen se resuelve solo con los temas visto en clase, si se resuelve con algo que no vimos en clase 1 punto menos por cada cosa que no explicamos en clase.
+Antes de realizar la consigna, por favor mirar las rubricas de calificación en la tarea (descripción y nota).
+Tiempo estimado de examen 80min. (los tiempos son estrictos con reloj en pantalla y alarma)
 
-Además, los colores de los LEDs serán personalizables por el usuario usando 3 potenciometros para ajustar los valores de RGB, durante el tiempo entre apagar un LED y encender el siguiente, hacer que los (aproximadamente 100ms por parpadeo) y se mostrará un mensaje en el monitor serial que indica la configuración de colores con el siguiente formato: 1° Renglón => Tiempo: x Donde x es el valor en Segundos (no en miliSegundos) 2° Renglón => R:x G:x B:x Donde x es el valor que va a tener de color en escala 0-255
+Componentes que podra ser utilizados:
+Protoboard
+Arduino
+Resistencia (220)
+Potenciómetro (10K)
+PushButton
+Led RGB ( no vamos a usar led comunes)
+Buzzers
+Fotorresistencia
+Sensor Ultrasónico
+Sensor PIR
+Sensor Temperatura
+Pantalla LCD
+Sensor inclinación
+sensor flexible
+detector de Luz
+sensor de humedad
+NeoPixel
+Touchpad 4x4
+relé
+transistor (tip120) o (nMOS)
+Codificación que podrá ser utilizada  :
+#Define y Macros
+#ifdef  #endif
+Variables (locales y globales)   ( se admiten variables  contadoras )
+Condicional simple ( if - else if - else  -  if ternario )
+Condicional Compuesto ( AND , OR , NOT)
+pinMode ( INPUT, OUTPUT, INPUT_PULLUP)
+Lectura/Escritura Digital
+Lectura/Escritura Analógica
+Función MAP, Constrain
+delay
+delayMicrosecond
+Operadores aritméticos:     +   -   /   *    %
+Operadores de comparación:  <  >  >=  <=  !=    !
+Consola de Monitor Serial  Serial.print() y Serial.println()
+------------------------------------------------------------------------------
+Recomendación: realizar cada parte de forma individual y después unirlo para que todo el sistema completo ya que la rubrica de evaluación es por partes (aunque debe de quedar integrado para considerarse aprobado)
+------------------------------------------------------------------------------
 
-Pista: para poder escalar el valor cíclico de las lecturas analogías a un valor estable de salida analogía se puede realizar una regla de 3 simple: (value * 255) / 1023
+Consigna: Debes crear un sistema de monitoreo y visualización que esta compuesto por los siguientes componenetes y su funcionalidad:
 
-ES UN SOLO REPOSITORIO POR MATERIA, NO UNO POR TRABAJO A ENTREGAR
+1)Comportamiento del Anillo de NeoPixel (12 LEDs):El anillo de 12 LEDs debe comenzar todo en verde cuando la distancia es mínima y se va apagando progresivamente conforme la distancia aumenta. El color de los LEDs debe cambiar de verde a rojo, apagándose gradualmente, a medida que el sensor detecta una mayor distancia.
 
-La entrega de los TP se realiza por una nueva BRANCH en su repositorio de GIT (ADENTRO UNA CARPETA CON EL MISMO NOMBRE DE LA RAMA).
+: El anillo completo se ilumina en verde.
+: El anillo se va apagando gradualmente, y el color cambia de verde a amarillo y luego a rojo.
+: El anillo parpadea, con todos los LEDs en rojo.
 
-Agregarme como colaborador del repo GIT -> consor92@gmail.com
+: La transición de color debe ser gradual, y los LEDs se deben apagar o cambiar de color de manera progresiva conforme la distancia aumenta.
 
-Luego colocar el enlace a la BRACH en la entrega de esta tarea (si no esta el link de acceso, no estoy como colaborador o se entrega por otro medios el TP se considera DESAPROBADO). Captura de pantalla del circuito. Archivo de codificación de arduino ( .ino) No subir archivos basura de ningún IDE. Archivo README.md actualizado la consigna del TP a entregar. Si se requiere, subir documentación pedida (siempre en formato .PDF) Todo tiene que estar dentro de una carpeta en la rama correspondiente que se llamara igual al nombre del TP.
+Incremento de LEDs:
+Como el sensor de distancia se usa para medir la proximidad, más LEDs deben transicionar de color conforme la distancia medida aumenta o disminuye. Los LEDs deben seguir una transición de colores de verde a amarillo y luego a rojo según la distancia.
 
-El archivo README.md de cada Branch contendrá: Datos del alumno, docente y explicación de la materia.(Nombre y Apellido, Correo , Curso y Division) Organización/estructura de la branch y su contenido. Consigna a resolver. Comentarios sobre complicaciones.
 
-Hola profe, tuve el problema de que no tenia suficientes pines analagicos para hacer el trabajo con 3 leds asi que lo hice con dos pero usando el mismo sistema de prendido y apagado de las luzes con un parpadeo
+Desde 0 hasta 300cm: Los LEDs deben iluminarse/apagarse de forma progresiva y cambiar de verde a medida que la distancia disminuye. (pixeles 0 al 4) (verde)
+De 300 a 800cm: Los LEDs deben iluminarse/apagarse de forma progresiva y cambiar de verde a amarillo (pixeles 5 a 8).(amarillo)
+De 800 a  999cm: Los LEDs deben iluminarse/apagarse de forma progresiva y cambiar  de amarillo a rojo (pixeles 6 a 11)(amarillo)
+En 1000 o si no se detecta distancia:  El anillo parpadea, con todos los LEDs en rojo.(rojo)
+
+2)Lectura del Sensor de distancia y Monitor Serial:
+
+El sensor de distancia medirá la distancia hasta un máximo de 1000. Los valores de distancia se deben ajustar para que el sistema reaccione de manera adecuada con los LEDs y el buzzer, siguiendo la siguiente lógica:
+
+De 0 a 1000cm: Los valores de distancia deben ajustarse para obtener una salida adecuada en los LEDs y el buzzer, de modo que los LEDs y el buzzer se comporten de acuerdo a la proximidad del objeto (con una transición progresiva desde verde a rojo, y pitidos que aumentan en frecuencia conforme la distancia disminuye).
+
+Nota: El sensor debe ser capaz de proporcionar lecturas precisas, y el código debe ajustarse para interpretar estas lecturas de manera proporcional a la distancia real ( hasta 300cm).
+Debes realizar pruebas de lectura del sensor mediante el Monitor Serial, mostrando en la consola los valores que recibe el Arduino.
+mostrar la distancia leída y las escaladas.
+Deshabilitar la parte del código para pruebas de sensores luego de realizar las pruebas de valores.
+Se debe poder activar y desactivar bloques de código con variables de definición
+
+3)Comportamiento del Buzzer: El buzzer debe emitir pitidos
+
+El buzzer debe emitir pitidos que varían en función de la distancia detectada por el sensor de distancia. La velocidad de los pitidos debe ajustarse según la proximidad al objeto.
+
+Verde (0-300cm): No debe sonar el buzzer.
+Amarillo (300-500 cm): El buzzer debe emitir pitidos lentos (cada 500 ms).
+Amarillo (500-800 cm): El buzzer emite pitidos más rápidos (cada 50 ms).
+Rojo (800-1000 cm): El buzzer debe emitir pitidos continuos (cada 10-20 ms).
+
+Nota: Los pitidos deben volverse más rápidos conforme la distancia se acerca al valor máximo, para indicar una proximidad creciente.
+4)Pantalla LCD debe mostrar: 
+
+La pantalla LCD debe mostrar lo siguiente:
+La distancia escalada medida por el sensor, en centímetros.
+Un mensaje de advertencia que indica si el objeto está demasiado cerca o demasiado lejos: Si la distancia es menor a 300 cm: "¡Distancia Optima!"
+Si la distancia es mayor a 800 cm: "¡Demasiado lejos!"
+El estado del sistema: Si el sistema está encendido o apagado, dependiendo de la posición del botón de encendido/apagado.
+5) PushButton con funcion de boton: Un PushButton debe usarse para encender y apagar el sistema completo. Al presionar el botón (una sola vez), el sistema debe activarse o desactivarse por completo.
+Cuando el sistema está apagado: Todos los LEDs deben estar apagados, el buzzer debe estar inactivo y la pantalla LCD debe mostrar "Sistema Apagado".
+Cuando el sistema está encendido: Los LEDs, el buzzer y la pantalla LCD deben funcionar normalmente, y deben responder a los cambios de distancia del sensor.
