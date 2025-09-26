@@ -1,20 +1,79 @@
 # Tiziano-Giacomozzi-4-1-T.TARDE
-Tiziano Giacomozzi
-tizigiacomozzi525@gmail.com projecto informatico 4°1 Gonzalo Consorti
-Usando el ejercicio del TP1 como base: Desarrollar un sistema con , controlando el tiempo entre los cambios de colores mediante una resistencia variable (potenciómetro) que valla desde 0s(aprox) min a 3s(aprox) max, y el encendido/apagado de los LEDs con un pulsador (en funcionalidad boton) que puede detener y recomenzar la secuencia en cualquier momento, un buzzer que emitirá un sonido cuando cambien los colores (junto a la secuencia de parpadeo).
+# tizigiacomozzi525@gmail.com projecto informatico 4°1 Gonzalo Consorti
+# Descripción del Proyecto:
+El objetivo de este proyecto es que cada estudiante cree una melodía original y personalizada utilizando un buzzer y un Arduino. La melodía debe ser creada por el propio estudiante sin descargar melodías de internet.
 
-Además, los colores de los LEDs serán personalizables por el usuario usando 3 potenciometros para ajustar los valores de RGB, durante el tiempo entre apagar un LED y encender el siguiente, hacer que los (aproximadamente 100ms por parpadeo) y se mostrará un mensaje en el monitor serial que indica la configuración de colores con el siguiente formato: 1° Renglón => Tiempo: x Donde x es el valor en Segundos (no en miliSegundos) 2° Renglón => R:x G:x B:x Donde x es el valor que va a tener de color en escala 0-255
+Monofónico, suena solo un sonido a la vez (1 solo arduino con su buzzer)
+Polifónico, 2 sonidos sonando al mismo tiempo 
 
-Pista: para poder escalar el valor cíclico de las lecturas analogías a un valor estable de salida analogía se puede realizar una regla de 3 simple: (value * 255) / 1023
+(cada conjunto de arduino + buzzer es un canal del estéreo)
 
-ES UN SOLO REPOSITORIO POR MATERIA, NO UNO POR TRABAJO A ENTREGAR
+Aplicar funciones para acortar el manejo del codigo:
+void playNote(int note, int duration);
+void playMelody(const int notes[], const int figures[], int length) ;
+void pauseBetweenLoops(int seconds) ;
+int cuadritosToDuration(int cuadritos) ;
+void convert3to2(const int melody3[][3], int len, int melody2[], int tempo) {
+  int duracionRedonda = (60000 * 4) / tempo;  // duración de una redonda en ms
+  figura = duracionRedonda / duracion;
+}
 
-La entrega de los TP se realiza por una nueva BRANCH en su repositorio de GIT (ADENTRO UNA CARPETA CON EL MISMO NOMBRE DE LA RAMA).
+# 1-Crear tu propia melodía:
+        Utiliza la herramienta en línea Online Sequencer para componer una melodía original. (Polifónica osea 2 arduinos con 2 buzzer haciendo sonar 2 melodías a la vez que conformen una sola al sonar al unísono)
+        Configura la melodía con los siguientes parámetros:
+Grid: 1/4
+Time Signature: 4/4
+Key: C mayor
+Instrument: Grand Piano
+Ajusta el BPM (beats por minuto / tempo) para que esté entre 90 y 130. Esta configuración determina la velocidad de la melodía.
+MINIMO 30 notas por canal de sonido (cada conjunto de arduino + buzzer es un canal)
 
-Agregarme como colaborador del repo GIT -> consor92@gmail.com
+# 2-Exportar la melodía a formato MIDI:
+        Una vez creada la melodía, expórtala como un archivo MIDI.
 
-Luego colocar el enlace a la BRACH en la entrega de esta tarea (si no esta el link de acceso, no estoy como colaborador o se entrega por otro medios el TP se considera DESAPROBADO). Captura de pantalla del circuito. Archivo de codificación de arduino ( .ino) No subir archivos basura de ningún IDE. Archivo README.md actualizado la consigna del TP a entregar. Si se requiere, subir documentación pedida (siempre en formato .PDF) Todo tiene que estar dentro de una carpeta en la rama correspondiente que se llamara igual al nombre del TP.
+3-Convertir el archivo MIDI a datos para Arduino:
+Usa la herramienta en línea MIDI to Arduino Converter para convertir tu archivo MIDI a datos que puedas usar en tu código de Arduino.
+La herramienta proporcionará las notas y los tiempos correspondientes. Deberás interpretar estos datos y convertirlos en vectores para el código Arduino, siguiendo las reglas de duración y silencio descritas a continuación.
 
-El archivo README.md de cada Branch contendrá: Datos del alumno, docente y explicación de la materia.(Nombre y Apellido, Correo , Curso y Division) Organización/estructura de la branch y su contenido. Consigna a resolver. Comentarios sobre complicaciones.
+# 3- Implementar la melodía en Arduino:
+        Notas y Duraciones:
+MINIMO 30 notas por canal de sonido (cada conjunto de arduino + buzzer es un canal)    (sin contar los silencios).
+La melodía debe repetirse infinitamente: una vez que termine, debe esperar unos segundos y luego comenzar nuevamente desde el principio.
+5-Duraciones de las Figuras Musicales en la pagina:
+En el vector de nota va la nota musical, en el vector de figura la duración de dicha nota (cuadritos)
+Si no se va a tocar ninguna nota porque quieren que este sonando nada, en el vector de notas iría un 0 y en el de figura el silencio correspondiente
+En arduino:
+            Redonda =  2 
 
-Hola profe, tuve el problema de que no tenia suficientes pines analagicos para hacer el trabajo con 3 leds asi que lo hice con dos pero usando el mismo sistema de prendido y apagado de las luzes con un parpadeo
+= 32 cuadraditos
+            Blanca = 4 
+
+ = 16 cuadraditos
+            Negra = 8 
+
+= 8 cuadraditos
+            Corchea = 16 
+
+= 4 cuadraditos
+            Semicorchea = 32  
+
+= 2 cuadraditos
+
+           
+            Silencio de Redonda = -2  con nota 0 (cero)
+            Silencio de Blanca = -4  con nota 0 (cero)
+            Silencio de Negra = -8con nota 0 (cero)
+            Silencio de Corchea = -16con nota 0 (cero)
+            Silencio de Semicorchea = -32 con nota 0 (cero)
+
+7-Configuraciones:
+Declara los valores de ajuste como constantes globales con tipo en tu código:
+BMP/tempo
+Utiliza las notas musicales de la biblioteca pitches.h - estas deben ser declaradas como constantes globales sin tipo y solo debes incluir las notas que vas a usar.  ( que tiene el formato NOTE_G3 = 196  )
+Puntos a considerar:
+La calidad estética o la complejidad de la melodía no será un factor determinante en la evaluación. Lo importante es la originalidad y el cumplimiento de los requisitos.
+Asegúrate de que tu código sea claro y esté bien comentado.
+Asegúrate de que el vector de notas y el vector de figuras estén
+alineados verticalmente para que sea fácil ver qué nota corresponde con
+qué figura, que coincidan uno debajo del otro verticalmente . Cada vector debe estar en una única línea.
+El Arduino no puede reproducir dos notas simultáneamente. Asegúrate de que tu melodía solo toque una nota a la vez.
